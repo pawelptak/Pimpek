@@ -16,16 +16,16 @@ model = vosk.Model(base_path + "vosk-model-small-pl")
 
 samplerate = 16000
 device_info = sd.query_devices(kind='input')
-# print(sd.query_devices())
-# print("Default input device:", sd.default.device[0])
-# print("Default output device:", sd.default.device[1])
+print(sd.query_devices())
+print("Default input device:", sd.default.device[0])
+print("Default output device:", sd.default.device[1])
 
-# sd.default.device = (1, 0)
+sd.default.device = (0, -1)
 
 if device_info:
     samplerate = int(device_info['default_samplerate'])
 
-with sd.RawInputStream(samplerate=samplerate, blocksize=8000, dtype='int16',
+with sd.RawInputStream(samplerate=samplerate, blocksize=0, dtype='int16',
                        channels=1, callback=callback):
     rec = vosk.KaldiRecognizer(model, samplerate)
     print("Mów teraz...")
