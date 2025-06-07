@@ -1,0 +1,11 @@
+services:
+  phi3-api:
+    build: .
+    container_name: pimpek-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - gpt4all_models:/gpt4all_models
+      - piper_models:/piper_models
+      # - ./app:/app
+    restart: unless-stopped

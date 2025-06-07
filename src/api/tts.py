@@ -1,9 +1,8 @@
 import subprocess
-import uuid
 from pathlib import Path
 
 #PIPER_MODEL_PATH = "/mnt/ssd/piper_models/darkman/pl_PL-darkman-medium.onnx"
-PIPER_MODEL_PATH = "/piper_models/darkman/pl_PL-darkman-medium.onnx"
+PIPER_MODEL_PATH = "piper_models/darkman/pl_PL-darkman-medium.onnx"
 PIPER_BINARY = "piper"  # or absolute path if not in $PATH
 OUTPUT_DIR = Path("/models")
 # OUTPUT_DIR.mkdir(parents=True, exist_ok=True)

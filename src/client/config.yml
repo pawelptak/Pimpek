@@ -1,0 +1,3 @@
+vosk_model_path: "vosk_models/vosk-model-small-pl"
+mic_device_id: 1
+api_url: "http://192.168.1.29:8000"

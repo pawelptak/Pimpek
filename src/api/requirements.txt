@@ -1,0 +1,6 @@
+pyyaml
+fastapi
+gpt4all
+uvicorn
+piper-tts
+argostranslate
