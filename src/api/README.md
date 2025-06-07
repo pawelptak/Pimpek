@@ -17,7 +17,7 @@ Generate a response from the given prompt.
 ```
 {
         "response": "Stolicą Polski jest Warszawa.",
-        "audio_file": "path/to/the/synthesized/answer/audio"
+        "audio_file": "url/to/the/synthesized/answer/audio"
 }
 ```
 
