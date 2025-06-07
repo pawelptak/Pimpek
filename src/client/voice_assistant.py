@@ -4,9 +4,9 @@ import sounddevice as sd
 import vosk
 import json
 import requests
-import subprocess
+import subprocess 
 import yaml
-import winsound # only if running on Windows
+# import winsound # only if running on Windows
 import urllib.request
 import uuid
 import os 
@@ -60,8 +60,8 @@ with sd.RawInputStream(samplerate=samplerate, blocksize=0, dtype='int16',
                     urllib.request.urlretrieve(wav_path, filename)
 
                     print(f"🔊 Playing {filename}")
-                    # subprocess.run(["aplay", wav_path]) # only if running on Linux
-                    winsound.PlaySound(filename, winsound.SND_FILENAME)
+                    subprocess.run(["aplay", wav_path]) # only if running on Linux
+                    # winsound.PlaySound(filename, winsound.SND_FILENAME) # only if running on Windows
                     os.remove(filename)
                 except Exception as e:
                     print(f"❌ Request error {e}")
