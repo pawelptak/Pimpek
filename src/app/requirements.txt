@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-llama-cpp-python
-piper-tts
-argostranslate
-sounddevice
-vosk
-playsound
