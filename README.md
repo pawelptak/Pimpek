@@ -1,4 +1,4 @@
-# Pimpek
+# 🐶 Pimpek
 A Polish conversation partner.
 
 ## Getting Started
