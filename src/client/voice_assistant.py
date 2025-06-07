@@ -6,6 +6,8 @@ import json
 import requests
 import subprocess
 import yaml
+import winsound # only if running on Windows
+import urllib.request
 
 with open("config.yml", "r") as f:
     config = yaml.safe_load(f)
@@ -20,16 +22,16 @@ print(sd.query_devices())
 print("Default input device:", sd.default.device[0])
 print("Default output device:", sd.default.device[1])
 
-def callback(indata, frames, time, status):
-    if status:
-        print("SoundDevice status:", status, file=sys.stderr)
-    q.put(bytes(indata))
-
 model = vosk.Model(MODEL_PATH)
 
 device_info = sd.query_devices(kind='input')
 samplerate = int(device_info["default_samplerate"])
 sd.default.device = (DEVICE_ID, -1) # -1 means system default output device
+
+def callback(indata, frames, time, status):
+    if status:
+        print("SoundDevice status:", status, file=sys.stderr)
+    q.put(bytes(indata))
 
 with sd.RawInputStream(samplerate=samplerate, blocksize=0, dtype='int16',
                        channels=1, callback=callback):
@@ -51,10 +53,13 @@ with sd.RawInputStream(samplerate=samplerate, blocksize=0, dtype='int16',
                     
                     print(f"🤖 Response: {json_response['response']}")
 
-                    # wav_path = json_response["audio_file"]
-                    wav_path = "/mnt/ssd/phi_models/output.wav"
-                    print(f"🔊 Playing {wav_path}")
-                    subprocess.run(["aplay", wav_path])
+                    wav_path = json_response["audio_file"]
+                    filename = "output.wav"
+                    urllib.request.urlretrieve(wav_path, filename)
+
+                    print(f"🔊 Playing {filename}")
+                    # subprocess.run(["aplay", wav_path]) # only if running on Linux
+                    winsound.PlaySound(filename, winsound.SND_FILENAME)
                 except Exception as e:
                     print(f"❌ Request error {e}")
         else:
