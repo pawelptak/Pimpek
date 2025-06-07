@@ -46,8 +46,7 @@ def generate(request_data: PromptRequest, request: Request):
     chat_history.append({"role": "assistant", "content": output_en})
 
     output_pl = translate_text(output_en, "en", "pl")
-    # output_wav = synthesize_to_wav(output_pl)
-    filename = "output.wav"
+    filename = synthesize_to_wav(output_pl)
     base_url = str(request.base_url)
     output_url = urljoin(base_url, f"audio/{filename}")
 

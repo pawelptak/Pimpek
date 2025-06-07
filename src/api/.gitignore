@@ -1,3 +1,6 @@
 gpt4all_models/*
 !gpt4all_models/.gitkeep
 piper_models/*
+!piper_models/.gitkeep
+piper/*
+output/*

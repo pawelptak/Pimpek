@@ -8,6 +8,8 @@ import subprocess
 import yaml
 import winsound # only if running on Windows
 import urllib.request
+import uuid
+import os 
 
 with open("config.yml", "r") as f:
     config = yaml.safe_load(f)
@@ -54,12 +56,13 @@ with sd.RawInputStream(samplerate=samplerate, blocksize=0, dtype='int16',
                     print(f"🤖 Response: {json_response['response']}")
 
                     wav_path = json_response["audio_file"]
-                    filename = "output.wav"
+                    filename = f"output_{uuid.uuid4().hex}.wav"
                     urllib.request.urlretrieve(wav_path, filename)
 
                     print(f"🔊 Playing {filename}")
                     # subprocess.run(["aplay", wav_path]) # only if running on Linux
                     winsound.PlaySound(filename, winsound.SND_FILENAME)
+                    os.remove(filename)
                 except Exception as e:
                     print(f"❌ Request error {e}")
         else:

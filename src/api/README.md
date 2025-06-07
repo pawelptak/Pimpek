@@ -35,7 +35,8 @@ Manually clear the model's conversation context.
 1. Edit `config.yml` and adjust all the settings to your configuration.
 2. `python -m venv venv`
 3. `venv/Scripts/activate` (Windows) or `source \venv\bin\activate` (Linux)
-4. `pip install -r requirements.txt`
-5. `uvicorn api:app --host 0.0.0.0 --port 8000`
+4. `pip install -r requirements.txt` (Note: On Windows piper won't install via pip. Instead download the latest release from https://github.com/rhasspy/piper/releases/tag/2023.11.14-2 and add to your PATH.)
+5. 
+6. `uvicorn api:app --host 0.0.0.0 --port 8000`
 OR
-6. `docker compose up -d`
+7. `docker compose up -d`
