@@ -1,0 +1,13 @@
+services:
+  voicebot:
+    container_name: pimpek
+    build: .
+    devices:
+      - "/dev/snd:/dev/snd"
+    privileged: true
+    environment:
+      - AUDIODEV=default
+    volumes:
+      - /mnt/ssd/vosk_models:/models
+      - ./asound.conf:/etc/asound.conf
+    restart: always
