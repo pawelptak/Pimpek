@@ -10,7 +10,6 @@ import yaml
 import urllib.request
 import uuid
 import os 
-import wave
 
 with open("config.yml", "r") as f:
     config = yaml.safe_load(f)
@@ -30,12 +29,6 @@ model = vosk.Model(MODEL_PATH)
 device_info = sd.query_devices(kind='input')
 samplerate = int(device_info["default_samplerate"])
 sd.default.device = (DEVICE_ID, -1) # -1 means system default output device
-
-def get_wav_duration(path):
-    with wave.open(path, 'rb') as wf:
-        frames = wf.getnframes()
-        rate = wf.getframerate()
-        return frames / float(rate)
 
 def callback(indata, frames, time, status):
     if status:
@@ -67,13 +60,11 @@ with sd.RawInputStream(samplerate=samplerate, blocksize=0, dtype='int16',
                     urllib.request.urlretrieve(wav_path, filename)
 
                     stream.stop()
-                    duration = get_wav_duration(filename)
 
                     print(f"🔊 Playing {filename} ({duration:.2f}s)")
                     subprocess.run(["aplay", filename]) # only if running on Linux
                     # winsound.PlaySound(filename, winsound.SND_FILENAME) # only if running on Windows
 
-                    # sd.sleep(int((duration + 0.2) * 1000))
                     stream.start()
 
                     os.remove(filename)
