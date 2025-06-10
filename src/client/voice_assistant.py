@@ -59,9 +59,12 @@ with sd.RawInputStream(samplerate=samplerate, blocksize=0, dtype='int16',
                     filename = f"output_{uuid.uuid4().hex}.wav"
                     urllib.request.urlretrieve(wav_path, filename)
 
+                    stream.stop()
                     print(f"🔊 Playing {filename}")
                     subprocess.run(["aplay", filename]) # only if running on Linux
                     # winsound.PlaySound(filename, winsound.SND_FILENAME) # only if running on Windows
+                    stream.start()
+                    
                     os.remove(filename)
                 except Exception as e:
                     print(f"❌ Request error {e}")
